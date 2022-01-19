@@ -1,0 +1,9 @@
+/* .init-box,
+.data-box {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+} */
+
