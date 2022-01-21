@@ -2,6 +2,10 @@
 
 一个用来计算线性插值的网页小应用。
 
+## 使用
+
+访问[网站](https://linear-interpolator.vercel.app/)即使用。
+
 ## 用到的工具
 
 - [Vue](https://v3.cn.vuejs.org/)
@@ -12,6 +16,10 @@
 # Linear Interpolator
 
 A web app to do linear interpolation operation.
+
+## Usage
+
+To try it out, check [this](https://linear-interpolator.vercel.app/).
 
 ## Used Tools
 
