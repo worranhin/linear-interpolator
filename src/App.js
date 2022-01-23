@@ -1,6 +1,6 @@
-import HeadRow from './HeadRow.js';
-import PresetRow from './PresetRow.js';
-import GetdataRow from './GetdataRow.js';
+import HeadRow from './components/HeadRow.js';
+import PresetRow from './components/PresetRow.js';
+import GetdataRow from './components/GetdataRow.js';
 
 const App = {
     data() {

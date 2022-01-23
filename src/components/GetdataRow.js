@@ -3,7 +3,10 @@ import OutputBox from './OutputBox.js';
 
 /** 期望输出栏 */
 const GetdataRow = {
-    props: ['datas', 'ratio'],
+    props: {
+        datas: Object,
+        ratio: Number
+    },
     template: '\
         <div class="row my-3">\
             <input-box v-model="datas.data1"></input-box>\

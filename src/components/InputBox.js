@@ -1,5 +1,7 @@
 export default {
-    props: ['modelValue'],
+    props: {
+        modelValue: Number,
+    },
     emits: ['update:modelValue'],
     template: 
     ('<div class="col"><input class="form-control" type="number" v-model="value" @focus="focusHandler"></div>'),

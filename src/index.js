@@ -3,7 +3,7 @@
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // const Vue = require('vue');
 
-import App from './components/App.js';
+import App from './App.js';
 
 const app = Vue.createApp(App);
 const vm = app.mount('#app');

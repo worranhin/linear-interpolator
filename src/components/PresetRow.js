@@ -3,7 +3,9 @@
 import InputBox from './InputBox.js';
 
 const PresetRow = {
-    props: ['datas'],
+    props: {
+        datas: Object,
+    },
     template: '\
         <div class="row my-3">\
             <input-box v-model="datas.data1"></input-box>\
