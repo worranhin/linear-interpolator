@@ -1,0 +1,28 @@
+{
+  "name": "linear-interpolator",
+  "version": "0.2.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "vue": "^3.2.27"
+  },
+  "devDependencies": {
+    "vite": "^2.7.13"
+  },
+  "description": "一个用来计算线性插值的网页小应用。",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "serve": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worranhin/linear-interpolator.git"
+  },
+  "author": "hin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/worranhin/linear-interpolator/issues"
+  },
+  "homepage": "https://github.com/worranhin/linear-interpolator#readme"
+}
