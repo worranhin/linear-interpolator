@@ -1,10 +1,15 @@
+<template>
+    <div class="col">
+        <input class="form-control" type="number" v-model="value" @focus="focusHandler" />
+    </div>
+</template>
+
+<script>
 export default {
     props: {
         modelValue: Number,
     },
     emits: ['update:modelValue'],
-    template: 
-    ('<div class="col"><input class="form-control" type="number" v-model="value" @focus="focusHandler"></div>'),
     computed: {
         value: {
             get() {
@@ -21,3 +26,4 @@ export default {
         },
     },
 }
+</script>

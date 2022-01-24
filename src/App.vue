@@ -1,13 +1,21 @@
-import HeadRow from './components/HeadRow.js';
-import PresetRow from './components/PresetRow.js';
-import GetdataRow from './components/GetdataRow.js';
+<template>
+    <head-row></head-row>
+    <preset-row :datas="data_preset"></preset-row>
+    <getdata-row v-for="item in data_get" :key="item.id" :datas="item" :ratio="expectRatio"></getdata-row>
+    <button @click="addRow" type="button" class="btn btn-primary col-12">点击加一行</button>
+</template>
+
+<script>
+import HeadRow from './components/HeadRow.vue';
+import PresetRow from './components/PresetRow.vue';
+import GetDataRow from './components/GetDataRow.vue';
 
 const App = {
     data() {
         return {
             data_preset: {
-                data1: 10, 
-                data2: 20, 
+                data1: 10,
+                data2: 20,
                 expect: 15
             },
             data_get: [
@@ -24,7 +32,7 @@ const App = {
             try {
                 return (this.data_preset.expect - this.data_preset.data1) / (this.data_preset.data2 - this.data_preset.data1);
             }
-            catch(err){
+            catch (err) {
                 console.log(err);
             }
         }
@@ -42,9 +50,11 @@ const App = {
     },
     components: {
         'preset-row': PresetRow,
-        'getdata-row': GetdataRow,
+        'getdata-row': GetDataRow,
         'head-row': HeadRow,
     },
 };
 
 export default App;
+
+</script>
