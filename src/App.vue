@@ -1,6 +1,6 @@
 <template>
     <head-row></head-row>
-    <preset-row :datas="data_preset"></preset-row>
+    <preset-row :data="data_preset" @update:preset="handleUpdatePreset"></preset-row>
     <getdata-row
         v-for="item in data_get"
         :key="item.id"
@@ -34,6 +34,7 @@ const App = {
         };
     },
     methods: {
+        /* 添加一行 */
         addRow() {
             let currentRow = this.data_get.length;  // 获取当前行数
             let newRow = {
@@ -42,9 +43,9 @@ const App = {
                 data2: null,
                 expect: null,
             };
-            this.data_get.push(newRow);
+            this.data_get.push(newRow);  // 新行入栈
         },
-        /** 获取插值 */
+        /** 用数学方法获取插值 */
         getExpect(item) {
             if (item.data1 !== null && item.data2 !== null) {
                 return item.data1 + (item.data2 - item.data1) * (this.data_preset.expect - this.data_preset.data1) / (this.data_preset.data2 - this.data_preset.data1);
@@ -54,11 +55,34 @@ const App = {
             }
         },
         /** 处理输入框数据更新 */
-        handleUpdateData(data) {
-            let id = data.id;   // 获取当前行的 id
-            this.data_get[id - 1].data1 = data.data1;  // 更新 data1
-            this.data_get[id - 1].data2 = data.data2;  // 更新 data2
-            this.data_get[id - 1].expect = this.getExpect(this.data_get[id - 1]);  // 更新 expect
+        handleUpdateData(value, target, id) {
+            // 通过target来判断是哪个 data 被更新
+            if (target === 'data1') {
+                this.data_get[id - 1].data1 = value;
+            }
+            else if (target === 'data2') {
+                this.data_get[id - 1].data2 = value;
+            }
+            // 更新 expect
+            this.data_get[id - 1].expect = this.getExpect(this.data_get[id - 1]);
+        },
+        /** 处理预设数据更新 */
+        handleUpdatePreset(value, target) {
+            // 根据 target 更新相应的数据
+            if (target === 'data1') {
+                this.data_preset.data1 = value;
+            }
+            else if (target === 'data2') {
+                this.data_preset.data2 = value;
+            }
+            else if (target === 'expect') {
+                this.data_preset.expect = value;
+            }
+
+            // 更新所有行的 expect
+            for (let item of this.data_get) {
+                item.expect = this.getExpect(item);
+            }
         }
     },
     components: {

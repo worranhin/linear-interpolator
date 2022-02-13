@@ -1,13 +1,14 @@
 <template>
     <div class="col">
-        <input readonly class="form-control" :value="value" />
+        <input readonly class="form-control" :value="modelValue" v-bind="$attrs" />
     </div>
 </template>
 
 <script>
 export default {
+    inheritAttrs: false,
     props: {
-        value: [Number, String],
+        modelValue: [Number, String],
     },
 };
 </script>

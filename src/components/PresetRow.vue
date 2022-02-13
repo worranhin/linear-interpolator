@@ -1,23 +1,27 @@
 <template>
     <div class="row my-3">
-        <input-box v-model="datas.data1"></input-box>
-        <input-box v-model="datas.expect"></input-box>
-        <input-box v-model="datas.data2"></input-box>
+        <input-box :model-value="data.data1" @update:model-value="handleUpdate($event, 'data1')"></input-box>
+        <input-box :model-value="data.expect" @update:model-value="handleUpdate($event, 'expect')"></input-box>
+        <input-box :model-value="data.data2" @update:model-value="handleUpdate($event, 'data2')"></input-box>
     </div>
 </template>
 
 <script>
-/** 输入预期数据栏 */
-
 import InputBox from './InputBox.vue';
 
+/** 输入预期数据栏 */
 const PresetRow = {
     props: {
-        datas: Object,
+        data: Object,
     },
     components: {
         'input-box': InputBox,
     },
+    methods: {
+        handleUpdate(value, target) {
+            this.$emit('update:preset', value, target);
+        },
+    }
 };
 
 export default PresetRow;
