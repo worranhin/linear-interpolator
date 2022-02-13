@@ -49,6 +49,11 @@ const App = {
                 expect: null,
             };
             this.data_get.push(newRow);  // 新行入栈
+            
+            window.scrollBy({
+                    top: 200,
+                    behavior: 'smooth'
+                });
         },
         /** 用数学方法获取插值 */
         getExpect(item) {
