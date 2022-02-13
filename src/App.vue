@@ -8,9 +8,9 @@
         @update:data="handleUpdateData"
     ></getdata-row>
     <button @click="addRow" type="button" class="btn btn-primary col-12">点击加一行</button>
-    <div>
-        <input type="checkbox" v-model="isAutoAdd" id="auto-add">
-        <label for="auto-add">自动加行</label>
+    <div class="form-check form-switch mt-3">
+        <input class="form-check-input" role="switch" type="checkbox" v-model="isAutoAdd" id="autoAdd">
+        <label class="form-check-label" for="autoAdd">自动加行</label>
     </div>
 </template>
 
