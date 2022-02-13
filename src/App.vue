@@ -8,6 +8,10 @@
         @update:data="handleUpdateData"
     ></getdata-row>
     <button @click="addRow" type="button" class="btn btn-primary col-12">点击加一行</button>
+    <div>
+        <input type="checkbox" v-model="isAutoAdd" id="auto-add">
+        <label for="auto-add">自动加行</label>
+    </div>
 </template>
 
 <script>
@@ -19,18 +23,19 @@ const App = {
     data() {
         return {
             data_preset: {
-                data1: 10,
-                data2: 20,
-                expect: 15
+                data1: 1,
+                data2: 3,
+                expect: 2
             },
             data_get: [
                 {
                     id: 1,
-                    data1: 1,
-                    data2: 2,
-                    expect: null,
+                    data1: 10,
+                    data2: 30,
+                    expect: 20,
                 },
             ],
+            isAutoAdd: true,
         };
     },
     methods: {
@@ -65,6 +70,11 @@ const App = {
             }
             // 更新 expect
             this.data_get[id - 1].expect = this.getExpect(this.data_get[id - 1]);
+
+            // 自动加行判定
+            if (this.isAutoAdd === true && id === this.data_get.length && typeof(this.data_get[id - 1].expect) === 'number') {
+                this.addRow();
+            }
         },
         /** 处理预设数据更新 */
         handleUpdatePreset(value, target) {
@@ -83,7 +93,7 @@ const App = {
             for (let item of this.data_get) {
                 item.expect = this.getExpect(item);
             }
-        }
+        },
     },
     components: {
         'preset-row': PresetRow,

@@ -17,6 +17,9 @@ const PresetRow = {
     components: {
         'input-box': InputBox,
     },
+    emits:[
+        'update:preset',
+    ],
     methods: {
         handleUpdate(value, target) {
             this.$emit('update:preset', value, target);
