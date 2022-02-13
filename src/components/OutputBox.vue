@@ -1,13 +1,13 @@
 <template>
     <div class="col">
-        <input readonly class="form-control" type="number" :value="value" />
+        <input readonly class="form-control" :value="value" />
     </div>
 </template>
 
 <script>
 export default {
     props: {
-        value: Number,
+        value: [Number, String],
     },
 };
 </script>
