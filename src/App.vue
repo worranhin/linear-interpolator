@@ -6,6 +6,7 @@
         :key="item.id"
         :data="item"
         @update:data="handleUpdateData"
+        @deleteRow="handleDeleteRow"
     ></getdata-row>
     <button @click="addRow" type="button" class="btn btn-primary col-12">点击加一行</button>
     <div class="form-check form-switch mt-3">
@@ -35,6 +36,7 @@ const App = {
                     expect: 20,
                 },
             ],
+            currentId: 1,
             isAutoAdd: true,
         };
     },
@@ -43,7 +45,7 @@ const App = {
         addRow() {
             let currentRow = this.data_get.length;  // 获取当前行数
             let newRow = {
-                id: currentRow + 1,
+                id: ++this.currentId,
                 data1: null,
                 data2: null,
                 expect: null,
@@ -56,9 +58,9 @@ const App = {
                 });
         },
         /** 用数学方法获取插值 */
-        getExpect(item) {
-            if (item.data1 !== null && item.data2 !== null) {
-                return item.data1 + (item.data2 - item.data1) * (this.data_preset.expect - this.data_preset.data1) / (this.data_preset.data2 - this.data_preset.data1);
+        getExpect(value1, value2) {
+            if (value1 !== null && value2 !== null) {
+                return value1 + (value2 - value1) * (this.data_preset.expect - this.data_preset.data1) / (this.data_preset.data2 - this.data_preset.data1);
             }
             else {
                 return '请填写两边的数据';
@@ -66,18 +68,28 @@ const App = {
         },
         /** 处理输入框数据更新 */
         handleUpdateData(value, target, id) {
+            let targetData = this.data_get.find(item => item.id === id);  // 根据 id 找到对应的数据对象
             // 通过target来判断是哪个 data 被更新
             if (target === 'data1') {
-                this.data_get[id - 1].data1 = value;
+                targetData.data1 = value;
             }
             else if (target === 'data2') {
-                this.data_get[id - 1].data2 = value;
+                targetData.data2 = value;
+            }
+            else {
+                console.error('error: target must be "data1" or "data2"');
             }
             // 更新 expect
-            this.data_get[id - 1].expect = this.getExpect(this.data_get[id - 1]);
+            targetData.expect = this.getExpect(targetData.data1, targetData.data2);
 
             // 自动加行判定
-            if (this.isAutoAdd === true && id === this.data_get.length && typeof(this.data_get[id - 1].expect) === 'number') {
+            /******************************* warn **************************************
+             * 这里还存在一些问题，如果删除了最后一行的话，再修改最后一行时是不会触发自动加行的
+             *  这是因为删除最后一行后的最后一行的 id 将小于 currentId
+             * 暂时不知道怎么解决，也许可以在删除最后一行时，将 currentId 减一
+             * 但是又觉得没有必要，甚为纠结
+             ***************************************************************************/
+            if (this.isAutoAdd === true && id === this.currentId && typeof(targetData.expect) === 'number') {
                 this.addRow();
             }
         },
@@ -93,11 +105,25 @@ const App = {
             else if (target === 'expect') {
                 this.data_preset.expect = value;
             }
+            else {
+                console.error('error: target must be "data1" or "data2" or "expect"');
+            }
 
             // 更新所有行的 expect
             for (let item of this.data_get) {
-                item.expect = this.getExpect(item);
+                item.expect = this.getExpect(item.data1, item.data2);
             }
+        },
+        /** 处理删除行 */
+        handleDeleteRow(id) {
+            let indexToDelete = this.data_get.findIndex(item => item.id === id);
+            if (indexToDelete !== -1) {
+                this.data_get.splice(indexToDelete, 1);
+            }
+            else {
+                console.warn('warn: delete nothing');
+            }
+            
         },
     },
     components: {
