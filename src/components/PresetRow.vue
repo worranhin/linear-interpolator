@@ -1,8 +1,8 @@
 <template>
     <div class="row my-3">
         <input-box :model-value="data.data1" @update:model-value="handleUpdate($event, 'data1')"></input-box>
-        <input-box :model-value="data.expect" @update:model-value="handleUpdate($event, 'expect')"></input-box>
         <input-box :model-value="data.data2" @update:model-value="handleUpdate($event, 'data2')"></input-box>
+        <input-box :model-value="data.expect" @update:model-value="handleUpdate($event, 'expect')"></input-box>
     </div>
 </template>
 

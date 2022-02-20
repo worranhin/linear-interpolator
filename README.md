@@ -11,6 +11,16 @@
 - [Vue](https://v3.cn.vuejs.org/)
 - [Bootstrap](https://getbootstrap.com/)
 
+## Road Map
+
+> 大体上按优先度排序
+
+- [ ] 删除功能 
+- [ ] 导出功能
+- [ ] 『帮助』选项
+- [ ] 缓存机制
+- [ ] 更多插值法
+
 --------------------------------
 
 # Linear Interpolator
