@@ -1,5 +1,5 @@
 <template>
-    <div class="row my-3">
+    <div class="row my-3 d-flex">
         <input-box
             :model-value="data.data1"
             @update:model-value="handleUpdate($event, 'data1')"
@@ -11,6 +11,9 @@
             @update:model-value="handleUpdate($event, 'data2')"
             placeholder="请输入第二个数据"
         ></input-box>
+        <div class="col-1 align-self-center">
+            <button class="btn-close bg-danger"></button>
+        </div>
     </div>
 </template>
 

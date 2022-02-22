@@ -4,5 +4,6 @@
         <div class="col">已知数据1</div>
         <div class="col">已知数据2</div>
         <div class="col">待求数据</div>
+        <div class="col-1 align-self-center"></div>
     </div>
 </template>
