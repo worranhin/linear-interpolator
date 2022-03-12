@@ -3,7 +3,7 @@
         <input-box :model-value="data.data1" @update:model-value="handleUpdate($event, 'data1')"></input-box>
         <input-box :model-value="data.data2" @update:model-value="handleUpdate($event, 'data2')"></input-box>
         <input-box :model-value="data.expect" @update:model-value="handleUpdate($event, 'expect')"></input-box>
-        <div class="col-1 align-self-center"></div>
+        <div class="col-2 col-sm-1 align-self-center"></div>
     </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="row my-3 d-flex">
+    <div class="row my-3">
         <input-box
             :model-value="data.data1"
             @update:model-value="handleUpdate($event, 'data1')"
@@ -11,8 +11,10 @@
             placeholder="请输入第二个数据"
         ></input-box>
         <output-box :model-value="data.expect"></output-box>
-        <div class="col-1 align-self-center">
-            <button class="btn btn-danger" @click="$emit('deleteRow', data.id)">删除</button>
+        <div class="col-2 col-sm-1 align-self-center">
+            <button class="align-self-center btn btn-danger" @click="$emit('deleteRow', data.id)">
+            <i class="bi bi-trash-fill"></i>
+        </button>
         </div>
     </div>
 </template>
