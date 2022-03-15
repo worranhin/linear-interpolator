@@ -22,6 +22,7 @@
 - [ ] 更多插值法
 
 --------------------------------
+> unfinished English version
 
 # Linear Interpolator
 
