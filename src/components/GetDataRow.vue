@@ -11,10 +11,10 @@
             placeholder="请输入第二个数据"
         ></input-box>
         <output-box :model-value="data.expect"></output-box>
-        <div class="col-2 col-sm-1 align-self-center">
+        <div class="col-auto align-self-center">
             <button class="align-self-center btn btn-danger" @click="$emit('deleteRow', data.id)">
-            <i class="bi bi-trash-fill"></i>
-        </button>
+                <i class="bi bi-trash-fill"></i>
+            </button>
         </div>
     </div>
 </template>
