@@ -8,14 +8,35 @@
         @update:data="handleUpdateData"
         @deleteRow="handleDeleteRow"
     ></getdata-row>
-    <div class="row">
-        <button @click="addRow" type="button" class="btn btn-primary col-12">点击加一行</button>
+    <div class="row my-3">
+        <div class="col">
+            <button @click="addRow" type="button" class="btn btn-primary addRow">点击加一行</button>
+        </div>
     </div>
-    <div class="form-check form-switch mt-3">
-        <input class="form-check-input" role="switch" type="checkbox" v-model="isAutoAdd" id="autoAdd">
-        <label class="form-check-label" for="autoAdd">自动加行</label>
+    <div class="row my-3">
+        <div class="col">
+            <div class="form-check form-switch">
+                <input
+                    class="form-check-input"
+                    role="switch"
+                    type="checkbox"
+                    v-model="isAutoAdd"
+                    id="autoAdd"
+                />
+                <label class="form-check-label" for="autoAdd">自动加行</label>
+            </div>
+        </div>
+        <!-- <div class="col-auto">
+            <button class="btn btn-secondary ">导出为</button>
+        </div> -->
     </div>
 </template>
+
+<style>
+.addRow {
+    width: 100%;
+}
+</style>
 
 <script>
 import HeadRow from './components/HeadRow.vue';
@@ -61,9 +82,9 @@ const App = {
                 }
             }).then(() => {
                 window.scrollBy({  // 在添加新行后滚动至底部
-                        top: window.innerHeight,
-                        behavior: 'smooth'
-                    });
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
             });
         },
 
@@ -100,7 +121,7 @@ const App = {
              * 暂时不知道怎么解决，也许可以在删除最后一行时，将 currentId 减一
              * 但是又觉得没有必要，甚为纠结
              ***************************************************************************/
-            if (this.isAutoAdd === true && id === this.currentId && typeof(targetData.expect) === 'number') {
+            if (this.isAutoAdd === true && id === this.currentId && typeof (targetData.expect) === 'number') {
                 this.addRow();
             }
         },
@@ -134,7 +155,7 @@ const App = {
             else {
                 console.warn('warn: delete nothing');
             }
-            
+
         },
     },
     components: {
