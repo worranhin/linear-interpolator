@@ -45,20 +45,28 @@ const App = {
     methods: {
         /* 添加一行 */
         addRow() {
-            let currentRow = this.data_get.length;  // 获取当前行数
             let newRow = {
                 id: ++this.currentId,
                 data1: null,
                 data2: null,
                 expect: null,
             };
-            this.data_get.push(newRow);  // 新行入栈
-            
-            window.scrollBy({
-                    top: 200,
-                    behavior: 'smooth'
-                });
+
+            new Promise((resolve, reject) => {
+                try {
+                    resolve(this.data_get.push(newRow));  // 新行入栈
+                } catch {
+                    console.log('添加新行失败', e);
+                    reject(e);
+                }
+            }).then(() => {
+                window.scrollBy({  // 在添加新行后滚动至底部
+                        top: window.innerHeight,
+                        behavior: 'smooth'
+                    });
+            });
         },
+
         /** 用数学方法获取插值 */
         getExpect(value1, value2) {
             if (value1 !== null && value2 !== null) {
@@ -68,6 +76,7 @@ const App = {
                 return '请填写两边的数据';
             }
         },
+
         /** 处理输入框数据更新 */
         handleUpdateData(value, target, id) {
             let targetData = this.data_get.find(item => item.id === id);  // 根据 id 找到对应的数据对象
