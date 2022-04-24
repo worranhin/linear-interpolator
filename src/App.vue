@@ -1,39 +1,48 @@
 <template>
     <head-row></head-row>
     <preset-row :data="data_preset" @update:preset="handleUpdatePreset"></preset-row>
-    <getdata-row
-        v-for="item in data_get"
-        :key="item.id"
-        :data="item"
-        @update:data="handleUpdateData"
-        @deleteRow="handleDeleteRow"
-    ></getdata-row>
+    <getdata-row v-for="item in data_get" :key="item.id" :data="item" @update:data="handleUpdateData"
+        @deleteRow="handleDeleteRow"></getdata-row>
     <div class="row my-3">
         <div class="col">
-            <button @click="addRow" type="button" class="btn btn-primary addRow">点击加一行</button>
+            <button @click="addRow" type="button" class="btn btn-primary fullButton">点击加一行</button>
         </div>
     </div>
     <div class="row my-3">
         <div class="col">
             <div class="form-check form-switch">
-                <input
-                    class="form-check-input"
-                    role="switch"
-                    type="checkbox"
-                    v-model="isAutoAdd"
-                    id="autoAdd"
-                />
+                <input class="form-check-input" role="switch" type="checkbox" v-model="isAutoAdd" id="autoAdd" />
                 <label class="form-check-label" for="autoAdd">自动加行</label>
             </div>
         </div>
-        <!-- <div class="col-auto">
-            <button class="btn btn-secondary ">导出为</button>
-        </div> -->
+        <div class="col-auto">
+            <button class="btn btn-secondary" @click="exportData">导出为</button>
+        </div>
+    </div>
+    <!-- 导出内容框 -->
+    <div v-if="displayExport">
+        <div class="card my-1">
+            <div class="card-body">
+                <h5 class="card-title">.json</h5>
+                <p class="card-text">{{ exportStr.json }}</p>
+            </div>
+        </div>
+        <div class="card my-1">
+            <div class="card-body">
+                <h5 class="card-title">.csv</h5>
+                <pre class="card-text">{{ exportStr.csv }}</pre>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col">
+                <button class="btn btn-danger fullButton" @click="displayExport = false">关闭</button>
+            </div>
+        </div>
     </div>
 </template>
 
-<style>
-.addRow {
+<style scoped>
+.fullButton {
     width: 100%;
 }
 </style>
@@ -61,6 +70,12 @@ const App = {
             ],
             currentId: 1,
             isAutoAdd: true,
+            // 导出内容
+            exportStr: {
+                json: '',
+                csv: ''
+            },
+            displayExport: false,
         };
     },
     methods: {
@@ -81,10 +96,12 @@ const App = {
                     reject(e);
                 }
             }).then(() => {
-                window.scrollBy({  // 在添加新行后滚动至底部
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
+                if (!this.displayExport) {   // 若显示了导出框，则不自动滚动
+                    window.scrollBy({  // 在添加新行后滚动至底部
+                        top: window.innerHeight,
+                        behavior: 'smooth'
+                    });
+                }
             });
         },
 
@@ -155,7 +172,43 @@ const App = {
             else {
                 console.warn('warn: delete nothing');
             }
+        },
+        /** 导出数据 */
+        exportData() {
+            // 获取数据
+            let data = this.data_get.map(item => {
+                return {
+                    data1: item.data1,
+                    data2: item.data2,
+                    expect: item.expect,
+                };
+            });
+            data.unshift(this.data_preset);
 
+            // 导出 json
+            this.exportStr.json = JSON.stringify(data);
+
+            // 导出 csv
+            let csvStr = '';
+            for (let item of data) {
+                csvStr += `${item.data1},${item.data2},${item.expect}\n`;
+            }
+            this.exportStr.csv = csvStr;
+
+            // 显示导出框
+            new Promise((resolve, reject) => {
+                try {
+                    resolve(this.displayExport = true);
+                } catch (e) {
+                    console.log('导出失败', e);
+                    reject(e);
+                }
+            }).then(() => {
+                window.scrollBy({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
         },
     },
     components: {
