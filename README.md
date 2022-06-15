@@ -23,6 +23,7 @@
 - [ ] 『帮助』选项
 - [ ] 缓存机制
 - [ ] 更多插值法
+- [ ] convert to TS
 
 --------------------------------
 > unfinished English version
